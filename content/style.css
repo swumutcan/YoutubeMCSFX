@@ -1,0 +1,434 @@
+/* YouTube Music SFX - Audio Reactive Background & Liquid Glass UI */
+
+/* -------------------------------------------------------------
+   0. ROOT COLOR VARIABLES & OVERRIDES
+------------------------------------------------------------- */
+body.ytm-sfx-enabled,
+html[ytm-sfx-active] {
+  --ytmusic-nav-bar-background: transparent !important;
+  --ytmusic-guide-background: transparent !important;
+}
+
+/* -------------------------------------------------------------
+   1. CANVAS & REACTIVE BACKGROUND (ONLY ACTIVE ON PLAYER PAGE)
+------------------------------------------------------------- */
+#ytm-sfx-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  opacity: 0 !important; /* Hidden on home/browse page */
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Reactive background shows ONLY when the song player page is open */
+html[data-ytm-sfx-player-open="true"] #ytm-sfx-container,
+body.ytm-sfx-enabled:has(ytmusic-app-layout[player-ui-state="PLAYER_PAGE_OPEN"]) #ytm-sfx-container {
+  opacity: 1 !important;
+}
+
+#ytm-sfx-canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  pointer-events: none !important;
+}
+
+/* Subtle cinematic vignette for contrast behind player page */
+#ytm-sfx-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: radial-gradient(circle at 50% 45%, rgba(0, 0, 0, 0) 0%, rgba(3, 3, 5, 0.2) 60%, rgba(3, 3, 5, 0.6) 100%) !important;
+  pointer-events: none !important;
+}
+
+/* -------------------------------------------------------------
+   2. KILL SOLID BLACK BACKGROUND STRIPS RENDERED BY APP-LAYOUT
+------------------------------------------------------------- */
+body.ytm-sfx-enabled #guide-background,
+body.ytm-sfx-enabled #mini-guide-background,
+body.ytm-sfx-enabled ytmusic-app-layout #guide-background,
+body.ytm-sfx-enabled ytmusic-app-layout #mini-guide-background,
+body.ytm-sfx-enabled #nav-bar-background,
+body.ytm-sfx-enabled ytmusic-app-layout #nav-bar-background,
+body.ytm-sfx-enabled #player-bar-background,
+body.ytm-sfx-enabled ytmusic-app-layout #player-bar-background {
+  background: transparent !important;
+  background-color: transparent !important;
+  display: none !important;
+}
+
+/* -------------------------------------------------------------
+   3. CONTENT SPACING FOR FLOATING PLAYER BAR
+   (Home page content is 100% original and untouched!)
+------------------------------------------------------------- */
+body.ytm-sfx-enabled ytmusic-app-layout > [slot="content"] {
+  padding-bottom: 95px !important;
+  box-sizing: border-box !important;
+}
+
+/* -------------------------------------------------------------
+   4. TOP NAVIGATION BAR (MATCHING LIQUID GLASS)
+------------------------------------------------------------- */
+body.ytm-sfx-enabled ytmusic-nav-bar {
+  background: rgba(14, 15, 22, 0.45) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Search Box - Liquid Glass */
+body.ytm-sfx-enabled ytmusic-search-box,
+body.ytm-sfx-enabled .search-container.ytmusic-search-box,
+body.ytm-sfx-enabled ytmusic-search-box[opened] .search-container.ytmusic-search-box,
+body.ytm-sfx-enabled ytmusic-search-box[has-query] .search-container.ytmusic-search-box {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.25s ease !important;
+}
+
+body.ytm-sfx-enabled ytmusic-search-box input,
+body.ytm-sfx-enabled ytmusic-search-box .search-box,
+body.ytm-sfx-enabled ytmusic-search-box #placeholder,
+body.ytm-sfx-enabled ytmusic-search-box tp-yt-paper-icon-button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.ytm-sfx-enabled ytmusic-search-box:hover,
+body.ytm-sfx-enabled ytmusic-search-box:focus-within {
+  background: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* -------------------------------------------------------------
+   5. LEFT NAVIGATION / GUIDE (MATCHING LIQUID GLASS PILL)
+------------------------------------------------------------- */
+body.ytm-sfx-enabled [slot="guide"],
+body.ytm-sfx-enabled #guide-wrapper,
+body.ytm-sfx-enabled #guide-content,
+body.ytm-sfx-enabled tp-yt-app-drawer,
+body.ytm-sfx-enabled tp-yt-app-drawer#guide,
+body.ytm-sfx-enabled tp-yt-app-drawer #contentContainer,
+body.ytm-sfx-enabled #contentContainer.tp-yt-app-drawer,
+body.ytm-sfx-enabled tp-yt-app-drawer #scrim,
+body.ytm-sfx-enabled #scrim.tp-yt-app-drawer,
+body.ytm-sfx-enabled ytmusic-guide-section-renderer,
+body.ytm-sfx-enabled #items.ytmusic-guide-section-renderer {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Disable all horizontal scrolling and hide scrollbars completely in the guide */
+tp-yt-app-drawer,
+tp-yt-app-drawer *,
+ytmusic-guide-renderer,
+ytmusic-guide-renderer *,
+ytmusic-guide-section-renderer,
+ytmusic-guide-section-renderer *,
+#guide-wrapper,
+#guide-content,
+#sections,
+#sections *,
+#items,
+#items * {
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Chrome/Edge WebKit scrollbar complete removal for guide */
+tp-yt-app-drawer::-webkit-scrollbar,
+tp-yt-app-drawer *::-webkit-scrollbar,
+ytmusic-guide-renderer::-webkit-scrollbar,
+ytmusic-guide-renderer *::-webkit-scrollbar,
+ytmusic-guide-section-renderer::-webkit-scrollbar,
+ytmusic-guide-section-renderer *::-webkit-scrollbar,
+#guide-wrapper::-webkit-scrollbar,
+#guide-content::-webkit-scrollbar,
+#sections::-webkit-scrollbar,
+#items::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+body.ytm-sfx-enabled ytmusic-guide-renderer,
+ytmusic-guide-renderer {
+  background: rgba(14, 15, 22, 0.45) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  margin: 12px 0 14px 12px !important;
+  height: calc(100vh - 110px) !important;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+body.ytm-sfx-enabled ytmusic-guide-entry-renderer,
+ytmusic-guide-entry-renderer {
+  background: transparent !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 12px !important;
+  margin: 3px 8px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  transition: background-color 0.18s ease, transform 0.18s ease !important;
+}
+
+/* Clear any nested background and pseudo-elements to prevent double-box / shifted pills */
+ytmusic-guide-entry-renderer tp-yt-paper-item,
+ytmusic-guide-entry-renderer a,
+ytmusic-guide-entry-renderer .ytmusic-guide-entry-renderer {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+ytmusic-guide-entry-renderer::before,
+ytmusic-guide-entry-renderer::after,
+ytmusic-guide-entry-renderer tp-yt-paper-item::before,
+ytmusic-guide-entry-renderer tp-yt-paper-item::after {
+  display: none !important;
+}
+
+body.ytm-sfx-enabled ytmusic-guide-entry-renderer:hover,
+ytmusic-guide-entry-renderer:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translateX(2px);
+}
+
+body.ytm-sfx-enabled ytmusic-guide-entry-renderer[is-primary],
+ytmusic-guide-entry-renderer[is-primary],
+body.ytm-sfx-enabled ytmusic-guide-entry-renderer[active],
+ytmusic-guide-entry-renderer[active] {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+ytmusic-guide-entry-renderer .title,
+ytmusic-guide-entry-renderer yt-formatted-string {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+body.ytm-sfx-enabled ytmusic-guide-section-renderer tp-yt-paper-button,
+body.ytm-sfx-enabled ytmusic-guide-section-renderer #new-playlist-button,
+#new-playlist-button,
+ytmusic-guide-section-renderer tp-yt-paper-button {
+  margin: 6px 8px !important;
+  padding: 8px 14px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  font-size: 13px !important;
+  border-radius: 20px !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.ytm-sfx-enabled ytmusic-guide-section-renderer tp-yt-paper-button:hover,
+#new-playlist-button:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+ytmusic-guide-section-renderer #header,
+ytmusic-guide-section-renderer .header,
+ytmusic-guide-section-renderer #guide-section-title {
+  padding: 8px 12px !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+ytmusic-guide-section-renderer #subtitle,
+ytmusic-guide-section-renderer .subtitle,
+ytmusic-guide-section-renderer #items yt-formatted-string {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* -------------------------------------------------------------
+   6. BOTTOM PLAYER BAR (FLOATING LIQUID ISLAND)
+------------------------------------------------------------- */
+body.ytm-sfx-enabled ytmusic-app-layout > [slot="player-bar"],
+body.ytm-sfx-enabled ytmusic-app-layout > ytmusic-player-bar,
+body.ytm-sfx-enabled ytmusic-player-bar,
+body.ytm-sfx-enabled #layout[player-ui-state="PLAYER_PAGE_OPEN"] ytmusic-player-bar {
+  position: fixed !important;
+  bottom: 16px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 48px) !important;
+  max-width: 1120px !important;
+  margin: 0 !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  background: rgba(16, 17, 24, 0.65) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 1px rgba(255, 255, 255, 0.25) inset !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+  cursor: default !important;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  padding: 0 18px !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-bar,
+body.ytm-sfx-enabled ytmusic-player-bar .right-controls-buttons,
+body.ytm-sfx-enabled ytmusic-player-bar .middle-controls {
+  overflow: visible !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-bar * {
+  pointer-events: auto !important;
+}
+
+/* Ensure volume popup and sliders can freely pop up above the bar without clipping */
+body.ytm-sfx-enabled ytmusic-player-bar #volume-slider,
+body.ytm-sfx-enabled ytmusic-player-bar tp-yt-paper-slider#volume-slider,
+body.ytm-sfx-enabled ytmusic-player-bar [class*="volume"] {
+  overflow: visible !important;
+  z-index: 1000000 !important;
+}
+
+body.ytm-sfx-enabled #progress-bar.ytmusic-player-bar {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 3px !important;
+  padding: 0 !important;
+  border-top-left-radius: 22px !important;
+  border-top-right-radius: 22px !important;
+  overflow: hidden !important;
+  transition: height 0.15s ease !important;
+}
+
+body.ytm-sfx-enabled #progress-bar.ytmusic-player-bar:hover {
+  height: 5px !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-bar .thumbnail-image-wrapper,
+body.ytm-sfx-enabled ytmusic-player-bar .image.ytmusic-player-bar {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-bar tp-yt-paper-icon-button:not([class*="volume"]):hover {
+  transform: scale(1.12) !important;
+}
+
+/* -------------------------------------------------------------
+   7. PLAYER PAGE (ALBUM ART & CLEAN BORDERLESS QUEUE)
+------------------------------------------------------------- */
+body.ytm-sfx-enabled ytmusic-player-page {
+  background: transparent !important;
+  background-color: transparent !important;
+  z-index: 1 !important;
+}
+
+/* Kill static brown ambient pseudo-elements on player page */
+body.ytm-sfx-enabled ytmusic-player-page::before,
+body.ytm-sfx-enabled ytmusic-player-page::after,
+body.ytm-sfx-enabled ytmusic-player-page #main-panel::before,
+body.ytm-sfx-enabled ytmusic-player-page #main-panel::after,
+body.ytm-sfx-enabled ytmusic-player-page .immersive-background,
+body.ytm-sfx-enabled ytmusic-player-page .background-gradient {
+  content: none !important;
+  display: none !important;
+  opacity: 0 !important;
+  background: transparent !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-page #player,
+body.ytm-sfx-enabled ytmusic-player-page ytmusic-player,
+body.ytm-sfx-enabled ytmusic-player-page #song-video,
+body.ytm-sfx-enabled ytmusic-player-page #song-image,
+body.ytm-sfx-enabled ytmusic-player-page .thumbnail-image-wrapper,
+body.ytm-sfx-enabled ytmusic-player-page #thumbnail,
+body.ytm-sfx-enabled ytmusic-player-page .song-media-controls {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-page #song-image img,
+body.ytm-sfx-enabled ytmusic-player-page img#img {
+  border-radius: 18px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+  outline: none !important;
+  border: none !important;
+}
+
+body.ytm-sfx-enabled #side-panel.ytmusic-player-page,
+body.ytm-sfx-enabled ytmusic-tab-renderer,
+body.ytm-sfx-enabled ytmusic-player-page #main-panel,
+body.ytm-sfx-enabled ytmusic-player-page ytmusic-tab-header-renderer {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-queue-item {
+  border-radius: 10px !important;
+  border: none !important;
+  margin: 2px 4px !important;
+  transition: background-color 0.15s ease !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-queue-item:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.ytm-sfx-enabled ytmusic-player-queue-item[play-button-state="playing"],
+body.ytm-sfx-enabled ytmusic-player-queue-item[selected] {
+  background: rgba(255, 255, 255, 0.13) !important;
+  border: none !important;
+}

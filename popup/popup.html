@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Music SFX</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </div>
+        <div class="logo-title">
+          <h1>YTM SFX</h1>
+          <span class="tagline">Audio-Reactive Glow</span>
+        </div>
+      </div>
+      <label class="switch" title="Efekti Aç/Kapat">
+        <input type="checkbox" id="toggleEnabled" checked>
+        <span class="slider round"></span>
+      </label>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- Controls Body -->
+    <div class="content" id="mainControls">
+      <!-- Efekt Modu -->
+      <div class="form-group">
+        <label for="visualizerMode">Görsel Efekt Modu</label>
+        <div class="select-wrapper">
+          <select id="visualizerMode">
+            <option value="aurora">🌌 Aurora & Sıvı Işık (Önerilen)</option>
+            <option value="pulse">💓 Bass Pulse (Nabız Halkaları)</option>
+            <option value="wave">🌊 Frekans Dalgaları</option>
+            <option value="particles">✨ Kozmik Parçacıklar</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Renk Modu -->
+      <div class="form-group">
+        <label for="colorMode">Renk Teması</label>
+        <div class="select-wrapper">
+          <select id="colorMode">
+            <option value="album">🎨 Albüm Kapağından Al (Dinamik)</option>
+            <option value="cyberpunk">🌸 Cyberpunk (Neon Pembe/Mavi)</option>
+            <option value="synthwave">🌆 Synthwave (Mor/Turuncu)</option>
+            <option value="emerald">🍃 Zümrüt & Okyanus</option>
+            <option value="fire">🔥 Alev & Kehribar</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Ayarlar Sliders -->
+      <div class="sliders-section">
+        <!-- Hassasiyet -->
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Ritim & Bas Hassasiyeti</span>
+            <span class="val-display" id="valSensitivity">1.2x</span>
+          </div>
+          <input type="range" id="sensitivity" min="0.5" max="2.5" step="0.1" value="1.2">
+        </div>
+
+        <!-- Opaklık / Parlaklık -->
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Arka Plan Parlaklığı</span>
+            <span class="val-display" id="valOpacity">75%</span>
+          </div>
+          <input type="range" id="opacity" min="0.2" max="1.0" step="0.05" value="0.75">
+        </div>
+
+        <!-- Blur / Yumuşaklık -->
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Bulanıklık (Blur)</span>
+            <span class="val-display" id="valBlur">40px</span>
+          </div>
+          <input type="range" id="blur" min="10" max="80" step="5" value="40">
+        </div>
+
+        <!-- Hız -->
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Akış Hızı</span>
+            <span class="val-display" id="valSpeed">1.0x</span>
+          </div>
+          <input type="range" id="speed" min="0.5" max="2.0" step="0.1" value="1.0">
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">YouTube Music'e Hazır</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
