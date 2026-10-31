@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube Music SFX - Audio Reactive Background",
   "version": "1.0.0",
-  "description": "Müziğin ritmine, baslarına ve albüm kapağına göre dinamik ve akıcı arka plan oluşturan YouTube Music eklentisi.",
+  "description": "Audio-reactive visualizer background and glassmorphic UI for YouTube Music.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -15,7 +15,7 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "YouTube Music SFX Ayarları"
+    "default_title": "YouTube Music SFX Settings"
   },
   "permissions": [
     "storage"
